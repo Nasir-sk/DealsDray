@@ -42,6 +42,7 @@ const updateEmp= async ()=>{
 });
 result = await result.json()
 console.warn(result);
+if(result)
 navigate('/emp-list');
 } 
   return (

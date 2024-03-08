@@ -15,6 +15,16 @@ export default function EmployeeList() {
     result = await result.json();
     setEmp(result)
 }
+
+const deleteEmp= async (id)=>{
+  let result = await fetch(`http://localhost:4500/emp-list/${id}`,{
+   method:'Delete'
+   });
+   result = await result.json();
+   if(result){
+       getEmp();
+   }
+}
   return (
     <div>
       <div className='create-emp'>
@@ -45,9 +55,10 @@ export default function EmployeeList() {
                     <li>{item.course}</li>
                     <li>{item.img}</li>
                     <li>
-                    <Link to={"/edit-emp/"+item._id}>Update</Link>
+                    <Link to={"/edit-emp/"+item._id}>Edit </Link>
+                    <button onClick={()=>deleteEmp(item._id)}> Delete</button>
                     </li>
-                    {/* <button onClick={()=>deleteProduct(item._id)}>Delete</button> */}
+
                 </ul> 
                 )
                 :<h1>No Result Found</h1>
