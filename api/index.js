@@ -58,5 +58,8 @@ app.put('/edit-emp/:id', async (req, resp)=>{
     )
     resp.send(result)
 })
-
+app.delete("/emp-list/:id", async (req, resp)=>{
+    const result = await Emp.deleteOne({_id:req.params.id})
+    resp.send(result)
+})
 app.listen(4500);
