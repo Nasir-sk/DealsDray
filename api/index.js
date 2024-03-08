@@ -37,6 +37,8 @@ app.post('/create-emp',async (req, resp)=>{
 
 app.get('/emp-list', async (req, resp)=>{
     let emp = await Emp.find()
-    resp.send(emp)
+    if(emp.length>0){
+        resp.send(emp)
+    }else resp.send({result:"No products found"})
 })
 app.listen(4500);
