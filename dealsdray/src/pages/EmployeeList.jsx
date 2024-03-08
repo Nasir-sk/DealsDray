@@ -28,11 +28,21 @@ const deleteEmp= async (id)=>{
   return (
     <div>
       <div className='create-emp'>
+      <p>Count:
+      { 
+      emp.length>0 ? emp.map((item,index)=>
+          <ul key = {item._id}>
+            <li>{index+1}</li>
+          </ul>)
+          : 0
+}
+      </p>
       <li><Link to="/create-emp">Create Employee</Link></li> 
+      <input  type='text' placeholder='Enter search keyword' />
       </div>
       <div className='emp-list'>
             <h3>Employee List</h3>
-            <ul>
+            <ul> 
                 <li>S. NO</li>
                 <li>Name</li>
                 <li>Email</li>

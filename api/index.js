@@ -75,4 +75,17 @@ app.get("/search/:key", async (req, resp)=>{
         }); 
     resp.send(result)
 })
+
+app.get('/employees/count', async (req, resp) => {
+    try {
+        // Count documents in the collection
+        const count = await Emp.countDocuments({});
+        resp.json({ count: count });
+        resp.send(count)
+    } catch (err) {
+        console.error('Error counting documents:', err);
+        resp.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 app.listen(4500);
