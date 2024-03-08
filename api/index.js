@@ -41,4 +41,13 @@ app.get('/emp-list', async (req, resp)=>{
         resp.send(emp)
     }else resp.send({result:"No products found"})
 })
+
+app.get('/edit-emp/:id', async (req, resp)=>{
+    let result = await Emp.findOne({_id:req.params.id});
+    if(result){
+        resp.send(result)
+    }else{
+        resp.send({result:"No record found"})
+    }
+})
 app.listen(4500);

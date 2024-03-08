@@ -31,18 +31,23 @@ export default function EmployeeList() {
                 <li>Gender</li>
                 <li>Course</li>
                 <li>Img</li>
+                <li>Action</li>
             </ul>
             {
                 emp.length>0 ? emp.map((item,index)=>
                 <ul key = {item._id}>
                     <li>{index+1}</li>
                     <li>{item.name}</li>
-                    <li>${item.email}</li>
+                    <li>{item.email}</li>
                     <li>{item.mobileno}</li>
                     <li>{item.designation}</li>
                     <li>{item.gender}</li>
                     <li>{item.course}</li>
                     <li>{item.img}</li>
+                    <li>
+                    <Link to={"/edit-emp/"+item._id}>Update</Link>
+                    </li>
+                    {/* <button onClick={()=>deleteProduct(item._id)}>Delete</button> */}
                 </ul> 
                 )
                 :<h1>No Result Found</h1>

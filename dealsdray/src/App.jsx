@@ -19,7 +19,7 @@ function App() {
       <Route path='/' element={<Home/>}/>
       <Route path='/emp-list' element={<EmployeeList/>} />
       <Route path='/create-emp' element={<CreateEmp/>} />
-      <Route path='/edit-emp' element={<EditEmp/>} />
+      <Route path='/edit-emp/:id' element={<EditEmp/>} />
       <Route path='/logout' element={<h1> Logout Component</h1>} />  
       <Route path='/dashboard' element={<Dashboard/>} />
       <Route path='signup' element={<Signup/>}/>
