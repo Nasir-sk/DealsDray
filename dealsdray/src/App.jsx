@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import Signup from './pages/Signup';
 function App() {
   return (
     <BrowserRouter>
@@ -21,7 +22,7 @@ function App() {
       <Route path='/edit-emp' element={<EditEmp/>} />
       <Route path='/logout' element={<h1> Logout Component</h1>} />  
       <Route path='/dashboard' element={<Dashboard/>} />
-
+      <Route path='signup' element={<Signup/>}/>
       <Route path='/login' element={<Login/>} />
       
     </Routes>

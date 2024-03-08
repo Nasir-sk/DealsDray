@@ -1,3 +1,16 @@
+.create-emp a{
+  text-decoration: none;
+  padding: 5px;
+  background-color: green;
+  color: white;
+}
+
+.create-emp li{
+  margin-top: 6px;
+  list-style: none;
+  text-align: right;
+}
+
 .dash p{
     text-align: center;
 }
@@ -5,6 +18,13 @@
 .login{
     margin-left: 30%;
     margin-top: 100px;
+}
+
+.invalid-input{
+  color: red;
+  margin-top: -14px;
+  display: block;
+  margin-left: 22px;
 }
 
 .inputbox{

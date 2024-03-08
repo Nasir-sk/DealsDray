@@ -1,7 +1,13 @@
 import React from 'react'
 // import App from '../App.css'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 export default function Header() {
+    const auth = localStorage.getItem('user');
+    const navigate = useNavigate();
+    const logout = () => {
+        localStorage.clear();
+        navigate('/login')
+    }
   return (
     <div>
         <ul className="nav-ul">
@@ -13,7 +19,7 @@ export default function Header() {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/emp-list">Employee List</Link></li>
             <li><Link to="/dashboard">Nasir</Link></li>
-            <li><Link to='/login'>Logout</Link></li>
+            <li><Link to='/login' onClick={logout}>Logout</Link></li>
             </ul>
     </div>
   )
