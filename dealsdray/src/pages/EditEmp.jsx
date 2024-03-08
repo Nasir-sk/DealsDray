@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 export default function EditEmp() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -11,6 +11,7 @@ export default function EditEmp() {
   const [error, setError] = useState(false);
 
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(()=>{
         
@@ -31,6 +32,18 @@ export default function EditEmp() {
     setImg(result.img)
     setError(result.error)
 }
+
+const updateEmp= async ()=>{
+  console.warn(name,email, mobileno, designation, gender, course, img ) 
+  let result = await fetch(`http://localhost:4500/edit-emp/${params.id}`,{
+   method:"Put",
+   body:JSON.stringify({name, email, mobileno, designation, gender, course, img}),
+   headers:{'Content-Type':"application/json"}
+});
+result = await result.json()
+console.warn(result);
+navigate('/emp-list');
+} 
   return (
     <div className='product'>
     <h3>Edit Employee</h3>
@@ -48,7 +61,7 @@ export default function EditEmp() {
     {error && !course && <span className='invalid-input'>Enter valid course</span>}
     <input type='text' placeholder='Enter img' className='inputbox' value={img} onChange={(e) => { setImg(e.target.value) }} />
     {error && !img && <span className='invalid-input'>Enter valid img</span>}
-    <button  className='appbutton'>Add Product</button>
+    <button  onClick={updateEmp} className='appbutton'>Add Product</button>
     </div>
   )
 }
