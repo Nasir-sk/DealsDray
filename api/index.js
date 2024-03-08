@@ -50,4 +50,13 @@ app.get('/edit-emp/:id', async (req, resp)=>{
         resp.send({result:"No record found"})
     }
 })
+
+app.put('/edit-emp/:id', async (req, resp)=>{
+    let result = await Emp.updateOne(
+        {_id:req.params.id},
+        { $set: req.body}
+    )
+    resp.send(result)
+})
+
 app.listen(4500);
