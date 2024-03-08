@@ -62,4 +62,17 @@ app.delete("/emp-list/:id", async (req, resp)=>{
     const result = await Emp.deleteOne({_id:req.params.id})
     resp.send(result)
 })
+
+app.get("/search/:key", async (req, resp)=>{
+    let result = await Emp.find({
+            "$or" : [
+                {name: { $regex : req.params.key}},
+                {email: { $regex : req.params.key}},
+                {gender: { $regex : req.params.key}},
+                {course: { $regex : req.params.key}},
+                {designation: { $regex : req.params.key}},
+            ]
+        }); 
+    resp.send(result)
+})
 app.listen(4500);
