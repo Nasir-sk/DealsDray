@@ -34,4 +34,9 @@ app.post('/create-emp',async (req, resp)=>{
     let result =  await emp.save();
     resp.send(result);
 })
+
+app.get('/emp-list', async (req, resp)=>{
+    let emp = await Emp.find()
+    resp.send(emp)
+})
 app.listen(4500);
