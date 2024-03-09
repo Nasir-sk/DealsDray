@@ -7,19 +7,62 @@ export default function CreateEmp() {
   const [designation, setDesignation] = useState('')
   const [gender, setGender] = useState('')
   const [course, setCourse] = useState('')
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState();
+  const [date, setDate] = useState('');
   const [error, setError] = useState(false);
+  const [file, setFile] = useState(null)
+  // const [message, setMessage] = useState('');
+
+  const handleChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('http://localhost:4500/upload', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error('Error uploading file:', err);
+    }
+  };
+
+  // const handleUpload = async (e)=>{
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('file', file);
+
+  //     const response = await fetch('http://localhost:4500/upload',  {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Upload failed');
+  //     }
+
+  //     setMessage('File uploaded successfully');
+  //   } catch (error) {
+  //     setMessage(error.message);
+  //   }
+  // }
 
   const addEmp = async () => {
-  console.warn(!name);
-  if (!name || !email || !mobileno || !designation || !gender || !course || !img) {
+  // console.warn(!name);
+  if (!name || !email || !mobileno || !designation || !gender || !course || !date  || !img) {
       setError(true)
       return false;
   }
     const userId = JSON.parse(localStorage.getItem('user'))._id;
     let result = await fetch('http://localhost:4500/create-emp', {
         method: 'post',
-        body: JSON.stringify({ name, email, mobileno, designation, gender, course, img }),
+        body: JSON.stringify({ name, email, mobileno, designation, gender, course, date, img }),
         headers: {'Content-Type': 'application/json'}
     });
     result = await result.json();
@@ -41,7 +84,10 @@ export default function CreateEmp() {
             {error && !gender && <span className='invalid-input'>Enter valid gender</span>}
             <input type='text' placeholder='Enter course' className='inputbox' value={course} onChange={(e) => { setCourse(e.target.value) }} />
             {error && !course && <span className='invalid-input'>Enter valid course</span>}
-            <input type='text' placeholder='Enter img' className='inputbox' value={img} onChange={(e) => { setImg(e.target.value) }} />
+            <input type='text' placeholder='Enter date' className='inputbox' value={date} onChange={(e) => { setDate(e.target.value) }} />
+            {error && !date && <span className='invalid-input'>Enter valid date</span>}
+            <input type="file" onChange={handleChange} />
+            <button onClick={handleSubmit}>Upload</button>
             {error && !img && <span className='invalid-input'>Enter valid img</span>}
             <button onClick={addEmp} className='appbutton'>Add Product</button>
         </div>

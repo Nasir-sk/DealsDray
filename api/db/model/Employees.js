@@ -7,6 +7,7 @@ const EmployeeSchema = mongoose.Schema({
     designation:String,
     gender:String,
     course:String,
+    date:String,
     img:String
 })
 const Emp = mongoose.model('emp', EmployeeSchema);

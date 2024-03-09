@@ -4,6 +4,9 @@ import config from './db/config.js'
 import User from './db/model/Users.js';
 import Emp from './db/model/Employees.js';
 import cors from 'cors';
+import multer from 'multer'
+// import path from 'path'
+const upload = multer({ dest: 'uploads/' })
 const app = express();
 app.use(express.json());
 app.use(cors())
@@ -76,16 +79,61 @@ app.get("/search/:key", async (req, resp)=>{
     resp.send(result)
 })
 
-app.get('/employees/count', async (req, resp) => {
+// app.get('/employees/count', async (req, resp) => {
+    
+//         // Count documents in the collection
+//         const count = await Emp.countDocuments({});
+//         // resp.json({ count: count });
+//         resp.send(count)
+// });
+
+app.get('/employees/count', async (req, res) => {
     try {
         // Count documents in the collection
         const count = await Emp.countDocuments({});
-        resp.json({ count: count });
-        resp.send(count)
+        res.json({ count: count });
     } catch (err) {
         console.error('Error counting documents:', err);
-        resp.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb)=>{
+//         cb(null, 'public/');
+//     },
+//     filename:(req, file, cb)=>{
+//         cb(null, file.fieldname +"_"+ Date.now() + path.extname(file.originalname))
+//     }
+// })
+
+// const upload = multer({
+//     storage: storage
+// });
+
+// app.post('/upload', upload.single('file'), (req, resp)=>{
+//     console.log(req.file)
+// })
+
+
+// Multer storage configuration
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/'); // Save uploaded files to the 'uploads' directory
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // Use original filename
+    }
+  });
+  
+  // Multer instance with storage configuration
+//   const upload = multer({ storage: storage });
+  
+  // Define API endpoint to handle file uploads
+  app.post('/upload', upload.single('file'), (req, res) => {
+    // Handle file upload logic here
+    res.send('File uploaded successfully');
+  });
 
 app.listen(4500);

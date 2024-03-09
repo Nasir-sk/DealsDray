@@ -7,6 +7,7 @@ export default function EditEmp() {
   const [designation, setDesignation] = useState('')
   const [gender, setGender] = useState('')
   const [course, setCourse] = useState('')
+  const [date, setDate] = useState('')
   const [img, setImg] = useState('');
   const [error, setError] = useState(false);
 
@@ -29,15 +30,16 @@ export default function EditEmp() {
     setDesignation(result.designation)
     setGender(result.gender)
     setCourse(result.course)
+    setDate(result.date)
     setImg(result.img)
     setError(result.error)
 }
 
 const updateEmp= async ()=>{
-  console.warn(name,email, mobileno, designation, gender, course, img ) 
+  console.warn(name,email, mobileno, designation, gender, course, date, img ) 
   let result = await fetch(`http://localhost:4500/edit-emp/${params.id}`,{
    method:"Put",
-   body:JSON.stringify({name, email, mobileno, designation, gender, course, img}),
+   body:JSON.stringify({name, email, mobileno, designation, gender, course, date, img}),
    headers:{'Content-Type':"application/json"}
 });
 result = await result.json()
@@ -60,6 +62,8 @@ navigate('/emp-list');
     {error && !gender && <span className='invalid-input'>Enter valid gender</span>}
     <input type='text' placeholder='Enter course' className='inputbox' value={course} onChange={(e) => { setCourse(e.target.value) }} />
     {error && !course && <span className='invalid-input'>Enter valid course</span>}
+    <input type='text' placeholder='Enter date' className='inputbox' value={date} onChange={(e) => { setDate(e.target.value) }} />
+    {error && !date && <span className='invalid-input'>Enter valid date</span>}
     <input type='text' placeholder='Enter img' className='inputbox' value={img} onChange={(e) => { setImg(e.target.value) }} />
     {error && !img && <span className='invalid-input'>Enter valid img</span>}
     <button  onClick={updateEmp} className='appbutton'>Add Product</button>
